@@ -1,0 +1,17 @@
+# Product: API Section
+# API: Section
+# Function configuration for API Data Section
+
+# POST Endpoints
+postSectionEndpoint:
+  handler: api/data/section.postSectionEndpoint
+  events:
+    - http:
+        path: /section
+        method: post
+
+# GET Endpoints
+
+# PUT Endpoints
+
+# DELETE Endpoints

@@ -1,0 +1,71 @@
+Resources:
+  SyncLogTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:provider.stage}-SyncLog
+      AttributeDefinitions:
+        - AttributeName: messageId
+          AttributeType: S
+        - AttributeName: sequenceId
+          AttributeType: "N"
+      KeySchema:
+        - AttributeName: messageId
+          KeyType: HASH
+        - AttributeName: sequenceId
+          KeyType: RANGE
+      # Set the capacity to auto-scale
+      BillingMode: PAY_PER_REQUEST
+
+  UserTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:provider.stage}-User
+      AttributeDefinitions:
+        - AttributeName: schoolId
+          AttributeType: S
+        - AttributeName: codeId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: schoolId
+          KeyType: HASH
+        - AttributeName: codeId
+          KeyType: RANGE
+      # Set the capacity to auto-scale
+      BillingMode: PAY_PER_REQUEST
+
+  SingleTableDesign:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:provider.stage}-SingleTable
+      AttributeDefinitions:
+        - AttributeName: PartitionKey
+          AttributeType: S
+        - AttributeName: SortKey
+          AttributeType: S
+        - AttributeName: Data
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PartitionKey
+          KeyType: HASH
+        - AttributeName: SortKey
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: ${self:provider.stage}-SingleTableSortKeyIndex
+          KeySchema:
+            - AttributeName: SortKey
+              KeyType: HASH
+          Projection:
+            ProjectionType: INCLUDE
+            NonKeyAttributes:
+            - Attributes
+            - Data
+        - IndexName: ${self:provider.stage}-DataGSI
+          KeySchema:
+            - AttributeName: Data
+              KeyType: HASH
+          Projection:
+            ProjectionType: INCLUDE
+            NonKeyAttributes:
+            - Attributes
+      # Set the capacity to auto-scale
+      BillingMode: PAY_PER_REQUEST

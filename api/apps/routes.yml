@@ -1,0 +1,66 @@
+# Product: API HUB Apps
+# API: Apps
+# Function configuration for API Apps
+
+# POST Endpoints
+
+registerToolEndpoint:
+  handler: api/apps.registerToolEndpoint
+  events:
+    - http:
+        path: /tools
+        method: post
+        # Enable API Key to development endpoints. In future this endpoints may be removed.
+        private: true
+        # Disable authorizers. In future authorizers may be used.
+        # authorizer:
+        #   name: ${file(./config/apihub.conf.json):api.backend.authorizer.${self:provider.stage}.name}
+        #   arn: ${file(./config/apihub.conf.json):api.backend.authorizer.${self:provider.stage}.userPoolARN}
+
+registerAllowLists:
+  handler: api/apps.registerAllowLists
+  events:
+    - http:
+        path: /tools/allow_lists
+        method: post
+        # Enable API Key to development endpoints. In future this endpoints may be removed.
+        private: true
+        # Disable authorizers. In future authorizers may be used.
+        # authorizer:
+        #   name: ${file(./config/apihub.conf.json):api.backend.authorizer.${self:provider.stage}.name}
+        #   arn: ${file(./config/apihub.conf.json):api.backend.authorizer.${self:provider.stage}.userPoolARN}
+
+
+launchToolEndpoint:
+  handler: api/apps.launchToolEndpoint
+  events:
+    - http:
+        path: /tools/launch
+        method: post
+        cors: true
+        authorizer:
+          name: ${file(./config/apihub.conf.json):api.backend.authorizer.${self:provider.stage}.name}
+          arn: ${file(./config/apihub.conf.json):api.backend.authorizer.${self:provider.stage}.userPoolARN}
+    - http:
+        path: /tools/launch
+        method: get
+        cors: true
+        authorizer:
+          name: ${file(./config/apihub.conf.json):api.backend.authorizer.${self:provider.stage}.name}
+          arn: ${file(./config/apihub.conf.json):api.backend.authorizer.${self:provider.stage}.userPoolARN}
+
+# GET Endpoints
+getToolsEndpoint:
+  handler: api/apps.getToolsEndpoint
+  events:
+    - http:
+        path: /tools
+        method: get
+        cors: true
+        authorizer:
+          name: ${file(./config/apihub.conf.json):api.backend.authorizer.${self:provider.stage}.name}
+          arn: ${file(./config/apihub.conf.json):api.backend.authorizer.${self:provider.stage}.userPoolARN}
+
+# PUT Endpoints
+
+# DELETE Endpoints

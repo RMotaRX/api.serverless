@@ -1,0 +1,36 @@
+# Product: API HUB LTI v1.3
+# API: LTI v1.3
+# Function configuration for API LTI v1.3
+
+# POST Endpoints
+ltiRegisterToolEndpoint:
+  handler: api/apps/lti/v1p3.registerToolEndpoint
+  events:
+    - http:
+        path: /lti/v1p3/tools
+        method: post
+
+ltiLaunchToolEndpoint:
+  handler: api/apps/lti/v1p3.launchToolEndpoint
+  events:
+    - http:
+        path: /lti/v1p3/launch
+        method: post
+        cors: true
+    - http:
+        path: /lti/v1p3/launch
+        method: get
+        cors: true
+
+# GET Endpoints
+ltiGetToolsEndpoint:
+  handler: api/apps/lti/v1p3.getToolsEndpoint
+  events:
+    - http:
+        path: /lti/v1p3/tools
+        method: get
+        cors: true
+
+# PUT Endpoints
+
+# DELETE Endpoints

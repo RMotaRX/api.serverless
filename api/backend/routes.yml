@@ -1,0 +1,25 @@
+# Product: Hub Porta - Backend API
+# API: Backend API
+# Backend Function configuration
+
+# GET Endpoints
+accountProfiles:
+  handler: api/backend.getAccountProfiles
+  events:
+    - http:
+        path: /account_profiles
+        method: get
+        cors: true
+        authorizer:
+          name: ${file(./config/apihub.conf.json):api.backend.authorizer.${self:provider.stage}.name}
+          arn: ${file(./config/apihub.conf.json):api.backend.authorizer.${self:provider.stage}.userPoolARN}
+
+# POST Endpoints
+postAccountProfiles:
+  handler: api/backend.postAccountProfiles
+  events:
+    - http:
+        path: /account_profiles
+        method: post
+        cors: true
+        private: true

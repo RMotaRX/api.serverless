@@ -1,0 +1,103 @@
+service: api-hub
+#app: your-app-name
+#tenant: your-tenant-name
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  timeout: 30
+
+  stage: ${opt:stage,'dev'}
+  region: us-east-2
+
+  environment:
+    STAGE: ${self:provider.stage}
+
+  iamRoleStatements:
+    -  Effect: "Allow"
+       Action:
+         - "dynamodb:Query"
+         - "dynamodb:GetItem"
+         - "dynamodb:PutItem"
+         - "dynamodb:BatchWriteItem"
+         - "dynamodb:DeleteItem"
+       Resource: ""
+    -  Effect: "Allow"
+       Action:
+         - "dynamodb:Query"
+       Resource: ""
+    -  Effect: "Allow"
+       Action:
+         - "dynamodb:Query"
+         - "dynamodb:PutItem"
+         - "dynamodb:DeleteItem"
+       Resource: ""
+    -  Effect: "Allow"
+       Action:
+         - "dynamodb:Query"
+         - "dynamodb:PutItem"
+         - "dynamodb:DeleteItem"
+       Resource: ""
+    -  Effect: "Allow"
+       Action:
+         - "cognito-idp:AdminCreateUser"
+         - "cognito-idp:AdminSetUserPassword"
+       Resource: ""
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+  - serverless-s3-local
+
+custom:
+  s3:
+    port: 8004
+    directory: /tmp
+  dynamodb:
+    stages:
+      - dev
+      - qa
+      - prod
+    start:
+      cors: "*"
+      port: 8000
+      inMemory: true
+      heapInitial: 200m
+      heapMax: 1g
+      migrate: true
+      seed: true
+      convertEmptyValues: true
+
+package:
+  exclude:
+    - .dynamodb/**
+    - .scannerwork/**
+    - .vscode/**
+    - dev-utils/**
+    - test/**
+    - .env
+    - .jshintrc
+    - package.json
+    - package-lock.json
+    - README.md
+    - sonar-project.properties
+
+functions:
+  # - ${file(api/data/user/routes.yml)}
+  # - ${file(api/data/school/routes.yml)}
+  # - ${file(api/data/course/routes.yml)}
+  # - ${file(api/data/section/routes.yml)}
+  - ${file(api/sync/routes.yml)}
+  - ${file(api/custom_auth/routes.yml)}
+  - ${file(api/apps/lti/v1p3/routes.yml)}
+  - ${file(api/apps/routes.yml)}
+  - ${file(api/backend/routes.yml)}
+
+resources:
+  - ${file(resources/dynamodb-tables.yml)}
+  #- ${file(resources/rdsmysql.yml)}
+  #- ${file(resources/localS3.yml)}

@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Linux Debug: Serverless Offline",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run",
+                "debug-linux"
+            ],
+            "port": 9229
+        },
+        {
+            "name": "Win Debug: Serverless Offline",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run",
+                "debug-win"
+            ],
+            "port": 9229
+        }
+    ]
+}

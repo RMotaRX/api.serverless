@@ -1,0 +1,42 @@
+# Product: API Data
+# API: User
+# Function configuration for API Data User
+
+# POST Endpoints
+postUserEndpoint:
+  handler: api/data/user.postUserEndpoint
+  events:
+    - http:
+        path: /user
+        method: post
+
+# GET Endpoints
+getUserMeEndpoint:
+  handler: api/data/user.getUserEndpoint
+  events:
+    - http:
+        path: /user/me
+        method: get
+
+getUserEndpoint:
+  handler: api/data/user.getUserEndpoint
+  events:
+    - http:
+        path: /data/user/{schoolID}
+        method: get
+
+# PUT Endpoints
+putUserEndpoint:
+  handler: api/data/user.putUserEndpoint
+  events:
+    - http:
+        path: /user/{id}
+        method: put
+
+# DELETE Endpoints
+deleteUserEndpoint:
+  handler: api/data/user.deleteUserEndpoint
+  events:
+    - http:
+        path: /user/{id}
+        method: delete

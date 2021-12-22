@@ -1,0 +1,17 @@
+# Product: API School
+# API: School
+# Function configuration for API Data School
+
+# POST Endpoints
+postSchoolEndpoint:
+  handler: api/data/school.postSchoolEndpoint
+  events:
+    - http:
+        path: /school
+        method: post
+
+# GET Endpoints
+
+# PUT Endpoints
+
+# DELETE Endpoints

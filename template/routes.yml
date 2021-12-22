@@ -1,0 +1,17 @@
+# Product: Template
+# API: Template
+# Function configuration for Template
+
+# POST Endpoints
+postEndpoint:
+  handler: experimental/template.postEndpoint
+  events:
+    - http:
+        path: /template
+        method: post
+
+# GET Endpoints
+
+# PUT Endpoints
+
+# DELETE Endpoints

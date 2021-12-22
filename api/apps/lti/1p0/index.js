@@ -1,0 +1,1 @@
+module.exports = require("./lti1p0.function");

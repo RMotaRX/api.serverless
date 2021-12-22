@@ -1,0 +1,57 @@
+# Product: Template
+# API: Template
+# Function configuration for Template
+
+# POST Endpoints
+customAuthPostEndpoint:
+  handler: api/custom_auth.postEndpoint
+  events:
+    - http:
+        path: /custom_auth
+        method: post
+        cors: true
+
+customAuthRegistrationEndpoint:
+  handler: api/custom_auth.registrationEndpoint
+  events:
+    - http:
+        path: /custom_auth/registration
+        method: post
+        cors: true
+        private: true
+
+# Cognito Lambda Triggers
+PreSignUpTrigger:
+  handler: api/custom_auth/lambda-triggers/PreSignUp.handler
+  events:
+    - cognitoUserPool:
+      pool: hub-custom-positivo
+      trigger: PreSignUp
+
+DefineAuthChallengeTrigger:
+  handler: api/custom_auth/lambda-triggers/DefineAuthChallenge.handler
+  events:
+    - cognitoUserPool:
+      pool: hub-custom-positivo
+      trigger: DefineAuthChallenge
+
+CreateAuthChallengeTrigger:
+  handler: api/custom_auth/lambda-triggers/CreateAuthChallenge.handler
+  events:
+    - cognitoUserPool:
+      pool: hub-custom-positivo
+      trigger: CreateAuthChallenge
+
+VerifyAuthChallengeTrigger:
+  handler: api/custom_auth/lambda-triggers/VerifyAuthChallenge.handler
+  events:
+    - cognitoUserPool:
+      pool: hub-custom-positivo
+      trigger: VerifyAuthChallengeResponse
+
+PreTokenGenTrigger:
+  handler: api/custom_auth/lambda-triggers/PreTokenGen.handler
+  events:
+    - cognitoUserPool:
+      pool: hub-custom-positivo
+      trigger: PreTokenGenerationResponse

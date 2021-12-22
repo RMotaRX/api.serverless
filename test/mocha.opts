@@ -1,0 +1,6 @@
+--timeout 5000
+--reporter spec
+--ui bdd
+--exit
+test/serverless-bootstrap.js
+test/**/*.js

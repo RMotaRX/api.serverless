@@ -1,0 +1,49 @@
+# Product: API Sync
+# API: Sync
+# Function configuration for API Sync
+
+# POST Endpoints
+postSyncEndpoint:
+  handler: api/sync.postSyncEndpoint
+  events:
+    - http:
+        path: /sync
+        method: post
+        # Disable authorizers. In future authorizers will be used.
+        # private: true
+        # authorizer:
+        #   name: ${file(./config/apihub.conf.json):api.sync.authorizer.name}
+        #   arn: ${file(./config/apihub.conf.json):api.sync.authorizer.userPoolARN}
+
+# GET Endpoints
+getSyncEndpoint:
+  handler: api/sync.getSyncEndpoint
+  events:
+    - http:
+        path: /sync/{messageID}
+        method: get
+        # Disable authorizers. In future authorizers will be used.
+        # private: true
+        # authorizer:
+        #   name: ${file(./config/apihub.conf.json):api.sync.authorizer.name}
+        #   arn: ${file(./config/apihub.conf.json):api.sync.authorizer.userPoolARN}
+
+# getQryProfileUserId
+QueryProfileUserIdEndpoint:
+  handler: api/sync.QueryProfileUserIdEndpoint
+  events:
+    - http:
+        path: /user/{uuID}
+        method: get
+        private: true
+
+# Função que processa os arquivos enviados para o s3
+functionJsonS3:
+  handler: api/sync.functionJsonS3
+  events:
+    - s3:
+      bucket: api-sync-${self:provider.stage}
+      event: s3.ObjectCreated:*
+      rules:
+        - suffix: .json
+      existing: true

@@ -1,0 +1,17 @@
+# Product: API Data
+# API: Course
+# Function configuration for API Data Course
+
+# POST Endpoints
+postCourseEndpoint:
+  handler: api/data/course.postCourseEndpoint
+  events:
+    - http:
+        path: /course
+        method: post
+
+# GET Endpoints
+
+# PUT Endpoints
+
+# DELETE Endpoints

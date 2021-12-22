@@ -1,0 +1,24 @@
+# Node and JS package
+node_modules
+jspm_packages
+
+# Serverless
+.serverless
+
+# Test and Development Tools
+dev-utils
+
+# SonarQube/SonarScanner
+.scannerwork
+
+# Environment
+.env
+
+# DynamoDB
+.dynamodb
+
+# Experimental Dir
+experimental
+
+# Aurora Secrets
+utils/auroradb/secrets.json

@@ -1,0 +1,183 @@
+{
+  "offline": {
+    "dynamoDB": {
+      "config": {
+        "endpoint": "http://localhost:8000",
+        "region": "localhost"
+      },
+      "docClientConfig": {
+        "endpoint": "http://localhost:8000",
+        "region": "localhost"
+      }
+    }
+  },
+  "development": {
+    "dynamoDB": {
+      "config": {},
+      "docClientConfig": {}
+    },
+    "sqs" : {
+      "config": {
+      }
+    }
+  },
+  "api":{
+    "customAuth": {
+      "hashsecret": "50z+LOxZfPZzb8AuYbEoTx1p2iHpwp1HOjRylIorbuw=",
+      "randombytessize": 512,
+      "loginTypes": ["badgeLogin", "emojiLogin"],
+      "prefix": "CUSTOM_AUTH#"
+    },
+    "user": {},
+    "sync": {
+      "authorizer": {
+        "name": "sync-cognito-authorizer",
+        "userPoolARN": "arn:aws:cognito-idp:us-east-2:623216074674:userpool/us-east-2_9H9r7HIao"
+      }
+    },
+    "backend": {
+      "authorizer": {
+        "dev": {
+          "name": "apphub-dev-authorizer",
+          "userPoolARN": "arn:aws:cognito-idp:us-east-2:623216074674:userpool/us-east-2_9xvWkkfgh"
+        },
+        "qa": {
+          "name": "apphub-qa-authorizer",
+          "userPoolARN": "arn:aws:cognito-idp:us-east-2:623216074674:userpool/us-east-2_KEXePbJNx"
+        },
+        "prod": {
+          "name": "apphub-prod-authorizer",
+          "userPoolARN": "arn:aws:cognito-idp:us-east-2:623216074674:userpool/us-east-2_b3FOyQmES"
+        }
+      },
+      "profiles": {
+        "sortkey": "PROFILE",
+        "owner": "OWNER#"
+      }
+    },
+    "apps": {
+      "settings" :{
+        "prefix": "TOOL#",
+        "partition": "TOOL"
+      }
+    }
+  },
+  "lti1p0": {
+    "settings": {
+      "lti_version": "LTI-1p0",
+      "adm_group": "hub.adm"
+    }
+  },
+  "ltiv1p3": {
+    "platform": {
+      "info": {
+        "guid": "865a056b-a242-hub-edu-44de-803e-ec6c3c20ce2a",
+        "name": "Hub Educacional LMS",
+        "url": "https://hub.educacional.com",
+        "description": "Login único, Segurança e Relatórios",
+        "version": "1.0b"
+      },
+      "settings" :{
+        "auth_path": "/lti/v1p3/auth",
+        "token_path": "/lti/v1p3/token",
+        "keyset_path": "/lti/v1p3/keyset.json",
+        "key_source": "keys/keys.json",
+        "prefix": "LTITOOL#v1.3#",
+        "partition": "TOOL"
+      }
+    }
+  },
+  "cognitoIdentityServiceProvider": {
+    "dev": {
+      "config": {
+        "region": "us-east-2"
+      },
+      "userPoolId": "us-east-2_9xvWkkfgh"
+    },
+    "qa": {
+      "config": {
+        "region": "us-east-2"
+      },
+      "userPoolId": "us-east-2_KEXePbJNx"
+    },
+    "prod": {
+      "config": {
+        "region": "us-east-2"
+      },
+      "userPoolId": "us-east-2_b3FOyQmES"
+    }
+  },
+  "dbconfig": {
+    "singleTable": {
+      "dev": {
+        "tableName": "dev-SingleTable",
+        "pkName": "PartitionKey",
+        "skName": "SortKey",
+        "indexName": "dev-SingleTableSortKeyIndex"
+      },
+      "qa": {
+        "tableName": "qa-SingleTable",
+        "pkName": "PartitionKey",
+        "skName": "SortKey",
+        "indexName": "qa-SingleTableSortKeyIndex"
+      },
+      "prod": {
+        "tableName": "prod-SingleTable",
+        "pkName": "PartitionKey",
+        "skName": "SortKey",
+        "indexName": "prod-SingleTableSortKeyIndex"
+      }
+    },
+    "singleTableDataGSI": {
+      "dev": {
+        "tableName": "dev-SingleTable",
+        "hashKeyName": "Data",
+        "indexName": "dev-DataGSI"
+      },
+      "qa": {
+        "tableName": "qa-SingleTable",
+        "hashKeyName": "Data",
+        "indexName": "dev-DataGSI"
+      },
+      "prod": {
+        "tableName": "prod-SingleTable",
+        "hashKeyName": "Data",
+        "indexName": "dev-DataGSI"
+      }
+    },
+    "userTable": {
+      "dev": {
+        "tableName": "dev-User",
+        "pkName": "schoolId",
+        "skName": "codeId"
+      },
+      "qa": {
+        "tableName": "qa-User",
+        "pkName": "schoolId",
+        "skName": "codeId"
+      },
+      "prod": {
+        "tableName": "prod-User",
+        "pkName": "schoolId",
+        "skName": "codeId"
+      }
+    },
+    "logTable": {
+      "dev": {
+        "tableName": "dev-SyncLog",
+        "pkName": "messageId",
+        "skName": "sequenceId"
+      },
+      "qa": {
+        "tableName": "qa-SyncLog",
+        "pkName": "messageId",
+        "skName": "sequenceId"
+      },
+      "prod": {
+        "tableName": "prod-SyncLog",
+        "pkName": "messageId",
+        "skName": "sequenceId"
+      }
+    }
+  }
+}
